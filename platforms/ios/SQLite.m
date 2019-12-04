@@ -212,6 +212,7 @@ RCT_EXPORT_METHOD(open: (NSDictionary *) options success:(RCTResponseSenderBlock
       
         if (sqlite3_open_v2(name, &db,sqlOpenFlags, NULL) != SQLITE_OK) {
           pluginResult = [SQLiteResult resultWithStatus:SQLiteStatus_ERROR messageAsString:@"Unable to open DB"];
+          error(@[pluginResult.message]);
           return;
         } else {
           sqlite3_create_function(db, "regexp", 2, SQLITE_ANY, NULL, &sqlite_regexp, NULL, NULL);
